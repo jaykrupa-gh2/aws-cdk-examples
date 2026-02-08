@@ -97,6 +97,7 @@ class ApigwHttpApiLambdaDynamodbPythonCdkStack(Stack):
             memory_size=1024,
             timeout=Duration.minutes(5),
             log_retention=logs.RetentionDays.ONE_YEAR,
+            tracing=lambda_.Tracing.ACTIVE,
         )
 
         # grant permission to lambda to write to demo table
@@ -131,5 +132,7 @@ class ApigwHttpApiLambdaDynamodbPythonCdkStack(Stack):
                 ),
                 logging_level=apigw_.MethodLoggingLevel.INFO,
                 data_trace_enabled=True,
+            deploy_options=apigw_.StageOptions(
+                tracing_enabled=True,
             ),
         )
